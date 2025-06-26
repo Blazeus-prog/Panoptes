@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10">
+  <h2 class="text-2xl font-bold mb-6">✏️ Edit Product</h2>
+  <form method="post" action="/products/{{ product.id }}/edit" class="space-y-4">
+
+    <div>
+      <label class="block text-sm font-medium">Profile</label>
+      <select name="profile_id" class="w-full border px-3 py-2 rounded">
+        {% for profile in profiles %}
+        <option value="{{ profile.id }}" {% if profile.id == product.profile_id %}selected{% endif %}>
+          {{ profile.name }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Site</label>
+      <select name="site_id" class="w-full border px-3 py-2 rounded">
+        {% for site in sites %}
+        <option value="{{ site.id }}" {% if site.id == product.site_id %}selected{% endif %}>
+          {{ site.name }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Product Name</label>
+      <input type="text" name="product_name" value="{{ product.product_name }}" class="w-full border px-3 py-2 rounded" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Product URL</label>
+      <input type="url" name="product_url" value="{{ product.product_url }}" class="w-full border px-3 py-2 rounded" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Alert Price</label>
+      <input type="number" name="alert_price" value="{{ product.alert_price }}" step="0.01" class="w-full border px-3 py-2 rounded" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Alert Direction</label>
+      <select name="alert_direction" class="w-full border px-3 py-2 rounded">
+        <option value="below" {% if product.alert_direction == 'below' %}selected{% endif %}>Below</option>
+        <option value="above" {% if product.alert_direction == 'above' %}selected{% endif %}>Above</option>
+      </select>
+    </div>
+
+    <div class="flex items-center">
+      <input type="checkbox" name="auto_alert" value="true" {% if product.auto_alert %}checked{% endif %} class="h-4 w-4" />
+      <label class="ml-2 text-sm">Enable Auto Alert</label>
+    </div>
+
+    <div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

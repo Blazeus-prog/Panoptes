@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="p-6 max-w-md mx-auto">
+  <h2 class="text-xl font-bold mb-4">Test Form</h2>
+  <form method="post" action="/debug-test">
+    <input type="text" name="test_input" class="border p-2 w-full mb-4" placeholder="Write something" />
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+  </form>
+</div>
+{% endblock %}

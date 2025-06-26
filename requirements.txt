@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+httpx
+python-dotenv
+supabase
+pydantic
+requests
+beautifulsoup4
+APScheduler
+pytz
+fake-useragent
+jinja2
+python-multipart
+python-jose

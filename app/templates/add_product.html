@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10">
+  <h2 class="text-2xl font-bold mb-6">➕ Add Tracked Product</h2>
+  <form method="post" action="/products/add-ui" class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Profile</label>
+      <select name="profile_id" class="w-full border rounded px-3 py-2">
+        {% for profile in profiles %}
+        <option value="{{ profile.id }}">{{ profile.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Site</label>
+      <select name="site_id" class="w-full border rounded px-3 py-2">
+        {% for site in sites %}
+        <option value="{{ site.id }}">{{ site.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Product Name</label>
+      <input type="text" name="product_name" required class="w-full border rounded px-3 py-2" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Product URL</label>
+      <input type="url" name="product_url" required class="w-full border rounded px-3 py-2" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Alert Price (DKK)</label>
+      <input type="number" name="alert_price" step="0.01" class="w-full border rounded px-3 py-2" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Alert Direction</label>
+      <select name="alert_direction" class="w-full border rounded px-3 py-2">
+        <option value="below">Below</option>
+        <option value="above">Above</option>
+      </select>
+    </div>
+
+    <div class="flex items-center space-x-2">
+      <input type="checkbox" name="auto_alert" id="auto_alert" value="true" class="h-4 w-4 text-blue-600" checked />
+      <label for="auto_alert" class="text-sm text-gray-700">Enable Auto Alert</label>
+    </div>
+
+    <div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Add Product
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto mt-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">🛠 All Tracked Products – ADMIN</h1>
+    <a href="/admin" class="text-blue-600 hover:underline text-sm">← Back to Admin Panel</a>
+  </div>
+
+  <table class="min-w-full bg-white shadow rounded">
+    <thead class="bg-gray-100 text-sm text-gray-600 uppercase">
+      <tr>
+        <th class="px-4 py-2">User</th>
+        <th class="px-4 py-2">Profile</th>
+        <th class="px-4 py-2">Product</th>
+        <th class="px-4 py-2">Site</th>
+        <th class="px-4 py-2">Alert</th>
+        <th class="px-4 py-2">Status</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-sm divide-y divide-gray-200">
+      {% for p in products %}
+      <tr class="{% if not p.active %}bg-gray-100 text-gray-400{% endif %}">
+        <td class="px-4 py-2">{{ p.user_email }}</td>
+        <td class="px-4 py-2">{{ p.profile_name }}</td>
+        <td class="px-4 py-2">{{ p.product_name }}</td>
+        <td class="px-4 py-2">{{ p.site_name }}</td>
+        <td class="px-4 py-2">{{ p.alert_direction or '-' }} {{ p.alert_price or '-' }}</td>
+        <td class="px-4 py-2">{{ '✅ Active' if p.active else '❌ Inactive' }}</td>
+        <td class="px-4 py-2 space-x-2">
+          <form method="post" action="/admin/products/toggle-active/{{ p.id }}" class="inline">
+			<button type="submit" class="text-yellow-600 hover:underline">
+			  {% if p.active %}🛑 Deactivate{% else %}✅ Activate{% endif %}
+			</button>
+		  </form>
+		   
+          <form method="post" action="/admin/products/delete/{{ p.id }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to permanently delete this product?');">
+            <button type="submit" class="text-red-600 hover:underline text-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" class="px-4 py-4 text-center text-gray-400">No products found</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

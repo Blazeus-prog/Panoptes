@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto mt-10">
+  <div class="mb-6 flex justify-between items-center">
+    <h2 class="text-2xl font-bold">👥 User Management - ADMIN</h2>
+    <a href="/admin" class="text-sm text-blue-600 hover:underline">← Back to Admin Panel</a>
+  </div>
+  
+  <a href="/register" class="text-sm text-blue-600 hover:underline">➕ Create New User</a>  
+  <table class="min-w-full bg-white shadow rounded">
+    <thead class="bg-gray-100 text-sm text-gray-600 uppercase">
+      <tr>
+        <th class="px-4 py-2">Email</th>
+        <th class="px-4 py-2">Admin</th>
+        <th class="px-4 py-2">Profiles</th>
+        <th class="px-4 py-2">Products</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-sm divide-y divide-gray-200">
+      {% for user in users %}
+      <tr class="hover:bg-gray-50">
+        <td class="px-4 py-2">{{ user.email }}</td>
+        <td class="px-4 py-2">{{ "✅" if user.is_admin else "—" }}</td>
+        <td class="px-4 py-2">{{ user.profile_count }}</td>
+        <td class="px-4 py-2">{{ user.product_count }}</td>
+        <td class="px-4 py-2 space-x-2">
+          <form method="post" action="/admin/users/toggle-admin/{{ user.id }}" class="inline">
+            <button type="submit" onclick="return confirm('Are you sure?')" class="text-blue-600 hover:underline">
+              Toggle Admin
+            </button>
+          </form>
+          <a href="/admin/products?user_id={{ user.id }}" class="text-green-600 hover:underline">View Products</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
