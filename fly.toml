@@ -1,4 +1,4 @@
-app = "panoptes"
+# app = "panoptes" #
 primary_region = "ams"  # you can change to another nearby region
 
 [build]
