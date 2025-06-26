@@ -5,7 +5,8 @@ primary_region = "ams"  # you can change to another nearby region
   image = "python:3.13.5"
 
 [env]
-  SUPABASE_URL="https://hriawmceffhnfrdeelqw.supabase.co" SUPABASE_API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaWF3bWNlZmZobmZyZGVlbHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4MTAxNzIsImV4cCI6MjA2NTM4NjE3Mn0.JMQtpc1WixHTS5BbG1LwlOj7EvceBozzEyejBOKFM1U"
+  SUPABASE_URL="https://hriawmceffhnfrdeelqw.supabase.co"
+  SUPABASE_API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyaWF3bWNlZmZobmZyZGVlbHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4MTAxNzIsImV4cCI6MjA2NTM4NjE3Mn0.JMQtpc1WixHTS5BbG1LwlOj7EvceBozzEyejBOKFM1U"
   SECRET_KEY="93017542d7b7a03af8fc2b5cef67d38c83675ce824897f3127a069963e0b5781"
 
 [deploy]
