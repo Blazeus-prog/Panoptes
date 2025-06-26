@@ -3,7 +3,7 @@ uvicorn
 httpx
 python-dotenv
 supabase
-pydantic
+pydantic[email]
 requests
 beautifulsoup4
 APScheduler
