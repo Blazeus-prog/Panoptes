@@ -1,7 +1,9 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 import pytz
+from pytz import timezone
 
+ams_tz = timezone("Europe/Amsterdam")
 
 from app.routes.price_history import (
     run_kelz0r_scraper,
@@ -28,6 +30,7 @@ def start():
         "cron",
         hour=10,
         minute=0,
+        timezone=ams_tz,
         id="scrape_all_sites_test",
         replace_existing=True
     )

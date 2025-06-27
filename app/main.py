@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")  # default to 'development'
+
 import multiprocessing
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
@@ -11,10 +13,22 @@ from fastapi import Request
 from app.routes import auth, profiles, products, price_history
 from app.routes import ui
 from app.scheduler import start as start_scheduler
-
-
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Checky change
+# 👉 Only apply middleware in production 
+if ENVIRONMENT == "production":
+    app.add_middleware(HTTPSRedirectMiddleware)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["https://panoptes.fly.dev"],
+        allow_credentials=True,
+        allow_methods=["GET", "POST"],
+        allow_headers=["*"],
+    )
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
