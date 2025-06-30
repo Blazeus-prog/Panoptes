@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")  # default to 'development'
+print(f"[🧪] ENVIRONMENT is: {ENVIRONMENT}")
 
 import multiprocessing
 from fastapi import FastAPI
