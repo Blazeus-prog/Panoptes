@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-16 text-center">
+  <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">
+    🎯 Price Tracker for Pokémon Collectors
+  </h1>
+  <p class="text-lg sm:text-xl text-gray-600 mb-8">
+    Monitor prices across your favorite Danish hobby shops. Get alerts, view trends, and never miss a deal again.
+  </p>
+  <div class="flex justify-center gap-4 flex-wrap">
+    <a href="/login" class="bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700">
+      🔐 Log In
+    </a>
+    <a href="/register" class="bg-green-600 text-white px-6 py-3 rounded-xl shadow hover:bg-green-700">
+      🚀 Sign Up
+    </a>
+  </div>
+</div>
+{% endblock %}

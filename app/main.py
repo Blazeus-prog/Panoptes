@@ -8,6 +8,7 @@ import multiprocessing
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from app.routes import auth, profiles, products, price_history
@@ -17,6 +18,7 @@ from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+templates = Jinja2Templates(directory="app/templates")
 
 # Checky change
 # 👉 Only apply middleware in production 
@@ -50,9 +52,9 @@ def startup_event():
     from app.scheduler import scrape_all_sites
     scrape_all_sites()
 
-@app.get("/")
-def root():
-    return {"status": "Price Monitor API is running"}
+@app.get("/", include_in_schema=False)
+def landing_page(request: Request):
+    return templates.TemplateResponse("landing.html", {"request": request})
 
 def custom_openapi():
     if app.openapi_schema:

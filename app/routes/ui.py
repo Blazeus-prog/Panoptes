@@ -19,10 +19,17 @@ router = APIRouter()
 def dashboard(
     request: Request,
     show_archived: bool = False,
+    show_charts: Optional[str] = Query(default="false"),
     highlight: Optional[int] = None,
     profile_id: Optional[int] = Query(None),
     current_user: dict = Depends(get_current_user)
 ):
+    # Normalize show_charts as real boolean
+    show_charts = show_charts.lower() == "true"
+    
+    # Debug
+    print(f"[🧪] show_charts={show_charts}, show_archived={show_archived}, profile_id={profile_id}")
+
     # Fetch profiles
     profile_resp = supabase.table("profiles").select("*").eq("user_id", current_user["id"]).execute()
     profiles = profile_resp.data or []
@@ -127,6 +134,7 @@ def dashboard(
         "selected_profile_id": selected_profile_id,
         "highlight_id": highlight,
         "show_archived": show_archived,
+        "show_charts": show_charts,
         "no_profiles": False,
     })
 
