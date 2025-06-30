@@ -17,14 +17,27 @@ from app.routes import ui
 from app.scheduler import start as start_scheduler
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import RedirectResponse
+
 
 app = FastAPI()
 templates = Jinja2Templates(directory="app/templates")
 
-# Checky change
-# 👉 Only apply middleware in production 
+# Middleware to handle actual HTTPS redirect if not forwarded correctly
+class ProxyAwareHTTPSRedirectMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        proto = request.headers.get("x-forwarded-proto", "http")
+        if proto != "https":
+            url = request.url.replace(scheme="https")
+            return RedirectResponse(url=str(url))
+        return await call_next(request)
+
+# Apply only in production
 if ENVIRONMENT == "production":
-    app.add_middleware(HTTPSRedirectMiddleware)
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["panoptes.fly.dev", "*.fly.dev"])
+    app.add_middleware(ProxyAwareHTTPSRedirectMiddleware)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["https://panoptes.fly.dev"],
